@@ -1,24 +1,33 @@
-import logo from './logo.svg';
+
 import './App.css';
 
+import {useState} from "react"
+import { useMovieFetch } from './hooks/useAllMovies';
+import HomePage from "./pages/HomePage"
+import QuizPage from "./pages/QuizPage"
+
 function App() {
+
+  const [state] = useMovieFetch();
+
+  const [username, setUsername] = useState("")
+  const [start, setStart] = useState(false)
+  
+
+  if (state.movies.length === 0) {
+   return <div>load</div>
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {
+        start ?
+          <QuizPage allMovies={state.movies} username={username} setStart={setStart} />
+          :
+          <HomePage username={username} setUsername={setUsername} setStart={ setStart}/>
+      }
+       
+    </>
   );
 }
 
