@@ -1,22 +1,57 @@
 import React from 'react'
+import { injectStyle } from "react-toastify/dist/inject-style";
+import { toast, ToastContainer, Zoom } from 'react-toastify'
 
+import popcorn from "../assets/pop.png"
 
+if (typeof window !== "undefined") {
+    injectStyle();
+}
+  
 function HomePage(props) {
 
     const handleInputChange = (e) => { props.setUsername(e.target.value) }
-    const handleStartQuiz = () => {props.setStart(true)}
+    const handleStartQuiz = () => {
+        if (!props.username) {
+            toast.error('Nom requis !', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                transition: Zoom,
+                });
+        } else {
+            props.setStart(true)
+        }    
+    }
     
     return (
+        <>
+             <ToastContainer />
         <div className="containerPage">
-            <input
-                name="username"
-                id="username"
-                placeholder="Entrez votre nom"
-                value={props.username}
-                onChange={(e)=>handleInputChange(e)}
-            />
-            <button onClick={()=>handleStartQuiz()}>Commencer</button>
-        </div>
+            <div className="homeInformations">
+                <div className="titleMessage" >
+                    <img src={popcorn} alt="popcorn"  width="60px"  />
+                    <span> Bienvenue dans l'univers du cinéma </span>
+                    <img src={popcorn} alt="popcorn" width="60px" />
+                </div>
+                <div className="enterInformation" >
+                    <input
+                        name="username"
+                        id="username"
+                        placeholder="Entrez votre nom"
+                        value={props.username}
+                        onChange={(e)=>handleInputChange(e)}
+                    />
+                    <button onClick={()=>handleStartQuiz()}>Commencer le quiz</button>
+                </div> 
+            </div>
+            </div>
+           
+        </>
     )
 }
 

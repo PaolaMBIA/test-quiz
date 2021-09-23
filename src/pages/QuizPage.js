@@ -1,8 +1,8 @@
 import React from 'react'
 
 
-function QuizPage() {
-    
+function QuizPage(props) {
+    console.log("rr", props.username)
     return (
         <div>Home</div>
     )
