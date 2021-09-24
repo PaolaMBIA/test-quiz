@@ -3,6 +3,7 @@ import { injectStyle } from "react-toastify/dist/inject-style";
 import { toast, ToastContainer, Zoom } from 'react-toastify'
 
 import popcorn from "../assets/pop.png"
+import movieImage from "../assets/movie.png"
 
 if (typeof window !== "undefined") {
     injectStyle();
@@ -22,7 +23,7 @@ function HomePage(props) {
                 draggable: true,
                 progress: undefined,
                 transition: Zoom,
-                });
+            });
         } else {
             props.setStart(true)
         }    
@@ -30,25 +31,25 @@ function HomePage(props) {
     
     return (
         <>
-             <ToastContainer />
-        <div className="containerPage">
-            <div className="homeInformations">
-                <div className="titleMessage" >
-                    <img src={popcorn} alt="popcorn"  width="60px"  />
-                    <span> Bienvenue dans l'univers du cinéma </span>
-                    <img src={popcorn} alt="popcorn" width="60px" />
+            <ToastContainer />
+            <div className="containerPage">
+                <div className="homeInformations">
+                    <div className="titleMessage" >
+                        <img src={popcorn} alt="popcorn"  width="50px"  />
+                        <span> Bienvenue dans l'univers du cinéma </span>
+                        <img src={movieImage} alt="popcorn" width="60px" />
+                    </div>
+                    <div className="enterInformation" >
+                        <input
+                            name="username"
+                            id="username"
+                            placeholder="Entrez votre nom"
+                            value={props.username}
+                            onChange={(e)=>handleInputChange(e)}
+                        />
+                        <button onClick={()=>handleStartQuiz()}>Commencer le quiz</button>
+                    </div> 
                 </div>
-                <div className="enterInformation" >
-                    <input
-                        name="username"
-                        id="username"
-                        placeholder="Entrez votre nom"
-                        value={props.username}
-                        onChange={(e)=>handleInputChange(e)}
-                    />
-                    <button onClick={()=>handleStartQuiz()}>Commencer le quiz</button>
-                </div> 
-            </div>
             </div>
            
         </>

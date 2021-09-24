@@ -1,12 +1,10 @@
 import {useState, useEffect, useCallback} from 'react';
 
 
-export const useMovieFetch = () => {
+export const useMoviesFetch = () => {
     const [state, setState] = useState ({movies: []});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-
-    console.log(process.env.REACT_APP_API_URL)
 
     const fetchData = useCallback(async () => {
         setError(false);

@@ -2,13 +2,13 @@
 import './App.css';
 
 import {useState} from "react"
-import { useMovieFetch } from './hooks/useAllMovies';
+import { useMoviesFetch } from './hooks/useMoviesFetch';
 import HomePage from "./pages/HomePage"
 import QuizPage from "./pages/QuizPage"
 
 function App() {
 
-  const [state] = useMovieFetch();
+  const [state] = useMoviesFetch();
 
   const [username, setUsername] = useState("")
   const [start, setStart] = useState(false)
