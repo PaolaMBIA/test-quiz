@@ -11,17 +11,30 @@
     .imageBlock{
         position: relative;
 
+        @media screen and (max-width: 500px) {
+            width: 95%;
+            margin-top: 15%;
+        }
+
         .posterMovie{
-            border-radius: 50px;
+            border-radius: $size-10;
             box-shadow:  10px 10px 10px #d9d9d9,
              -20px -20px 60px #ffffff;
+            
+            @media screen and (max-width: 500px) {
+                width: -webkit-fill-available;
+            }
         }
 
         .profilActor{
-            border-radius: 20px;
+            border-radius: $size-5;
             position: absolute;
             left: 5%;
             bottom: -4%;
+
+            @media screen and (max-width: 500px) {
+                width: 25%;
+            }
         }
     }
 
@@ -30,6 +43,12 @@
         font-size: $size-3;
         width: 50%;
         text-align: center;
+
+        @media screen and (max-width: 500px) {
+            margin-top: 15%;
+            width: 90%;
+            font-size: $size-5;
+        }
     }
 
     .buttonBlock{
@@ -38,31 +57,34 @@
         width: 15%;
         justify-content: space-evenly;
 
+        @media screen and (max-width: 500px) {
+            margin-top: 15%;
+            width: 60%;
+        }
+
         .yesButton, .noButton{
             margin: 5%;
             padding: 6% 18% 6% 18%;
+            border: none;
+            border-radius: $size-11;
+
+            &:hover{
+                cursor: pointer;
+            }
+
+            &:active{
+                -webkit-box-shadow: inset 1px 1px 10px #333;
+                -moz-box-shadow:    inset 1px 1px 10px #333;
+                box-shadow:         inset 1px 1px 10px #333;
+            }
         }
 
         .noButton{
             background-color: $color-1;
-            border: none;
-            border-radius: 5px;
-
-            &:hover{
-                opacity: 0.6;
-                cursor: pointer;
-            }
         }
 
         .yesButton{
             background-color: $color-6;
-            border: none;
-            border-radius: 5px;
-
-            &:hover{
-                opacity: 0.6;
-                cursor: pointer;
-            }
         }
     }
 }

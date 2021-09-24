@@ -35,9 +35,9 @@ function HomePage(props) {
             <div className="containerPage">
                 <div className="homeInformations">
                     <div className="titleMessage" >
-                        <img src={popcorn} alt="popcorn"  width="50px"  />
+                        <img src={popcorn} alt="popcorn" className="popcornImage" />
                         <span> Bienvenue dans l'univers du cinéma </span>
-                        <img src={movieImage} alt="popcorn" width="60px" />
+                        <img src={movieImage} alt="popcorn" className="movieImage"  />
                     </div>
                     <div className="enterInformation" >
                         <input

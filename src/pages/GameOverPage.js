@@ -42,53 +42,53 @@ function GameOverPage(props) {
             <div className="endPageContainer" >
                 {
                     allScore ?
-                            <div className="allScoreInformations">
-                                <img
-                                    src="https://img.icons8.com/ios-filled/50/000000/circled-left-2.png"
-                                    alt="back arrow"
-                                    onClick={()=>handleHideAllScore()}
-                                />
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Scores</th>
-                                            <th>Nom</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            sortAllScore.map((scoreInfo, index) => (
-                                                <tr key={index} >
-                                                    <td>{scoreInfo.score }</td>
-                                                    <td>{ scoreInfo.username}</td>
-                                                </tr>
-                                            ))
-                                        }
-                                    </tbody>
-                                </table>
-                        </div>  
+                        <div className="allScoreInformations">
+                            <img
+                                src="https://img.icons8.com/ios-filled/50/000000/circled-left-2.png"
+                                alt="back arrow"
+                                onClick={()=>handleHideAllScore()}
+                            />
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Scores</th>
+                                        <th>Nom</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        sortAllScore.map((scoreInfo, index) => (
+                                            <tr key={index} >
+                                                <td>{scoreInfo.score }</td>
+                                                <td>{ scoreInfo.username}</td>
+                                            </tr>
+                                        ))
+                                    }
+                                </tbody>
+                            </table>
+                    </div>  
 
                     :
-                        <div className="scoreInformations">
-                            <p>Ton score est de <span>{props.score}/{props.movieLength}</span> </p>
-                            <div className="buttonsAction">
-                                <button  className="myButton" onClick={() => handleSaveScore()} >Sauvegarder</button>
-                                <button className="myButton" onClick={() => handleRestartGame()} >Rejouer</button>        
-                                <button className="myButton" onClick={() => handleShowAllScore()} >Regarder les scores</button>
+                    <div className="scoreInformations">
+                        <p>Ton score est de <span>{props.score}/{props.movieLength}</span> </p>
+                        <div className="buttonsAction">
+                            <button  className="myButton" onClick={() => handleSaveScore()} >Sauvegarder</button>
+                            <button className="myButton" onClick={() => handleRestartGame()} >Rejouer</button>        
+                            <button className="myButton" onClick={() => handleShowAllScore()} >Regarder les scores</button>
 
-                                <EmailShareButton
-                                    url=""
-                                    subject="Résultat quiz"
-                                    body= {`ton score est de ${props.score}/${props.movieLength}`}
-                                >
+                            <EmailShareButton
+                                url=""
+                                subject="Résultat quiz"
+                                body= {`ton score est de ${props.score}/${props.movieLength}`}
+                            >
 
-                                    <button className="myShareButton">
-                                        Partager
-                                        <img src="https://img.icons8.com/metro/26/000000/share.png" alt="share button" />
-                                    </button>
-                                </EmailShareButton>                               
-                            </div>
+                                <button className="myShareButton">
+                                    Partager
+                                    <img src="https://img.icons8.com/metro/26/000000/share.png" alt="share button" />
+                                </button>
+                            </EmailShareButton>                               
                         </div>
+                    </div>
                 }
             </div>
         </>

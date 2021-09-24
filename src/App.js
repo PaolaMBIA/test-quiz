@@ -9,13 +9,13 @@ import Loading from './components/Loading';
 
 function App() {
 
-  const [state] = useMoviesFetch();
+  const [state, loading] = useMoviesFetch();
 
   const [username, setUsername] = useState("")
   const [start, setStart] = useState(false)
   
 
-  if (state.movies.length === 0) {
+  if (state.movies.length === 0 || loading) {
    return <Loading />
   }
   

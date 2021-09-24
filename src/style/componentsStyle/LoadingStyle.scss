@@ -10,19 +10,19 @@
 }
 
   .lds-spinner div {
-    transform-origin: 40px 40px;
+    transform-origin: $size-1 $size-1;
     animation: lds-spinner 1.2s linear infinite;
   }
   .lds-spinner div:after {
     content: " ";
     display: block;
     position: absolute;
-    top: 3px;
-    left: 37px;
-    width: 6px;
-    height: 18px;
+    top: $size-7;
+    left: $size-6;
+    width: $size-9;
+    height: $size-8;
     border-radius: 20%;
-    background: #fff;
+    background: $color-5;
   }
   .lds-spinner div:nth-child(1) {
     transform: rotate(0deg);

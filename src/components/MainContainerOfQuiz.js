@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useActorsFetch } from '../hooks/useActorsFetch'
 import { toast, ToastContainer, Zoom } from "react-toastify"
 import defaultImage from "../assets/defaultImage.png"
@@ -11,7 +11,7 @@ function MainContenuOfQuiz(props) {
     const [actor, setActor] = useState([]);
     const [allActorInMovie, setAllActorInMovie] = useState([]);
     const [correctResult, setCorrectResult] = useState(false)
-    const [loading, error] = useActorsFetch(props.movies, setActor);
+    const [loading] = useActorsFetch(props.movies, setActor);
 
     const actorData = actor && [actor.map(actor => {
         return {nameActor : actor.name, profilActor: actor.profile_path }
@@ -31,31 +31,40 @@ function MainContenuOfQuiz(props) {
         }
     }
 
+    const fetchData = useCallback( async () => {
+        try {
+            await fetch(`https://api.themoviedb.org/3/movie/${props.movies[currentQuestion].id}/credits?api_key=932abb19676c822ea035ea1f7b3c7d6b`)
+                 .then(data => data.json())
+                 .then(data => {
+                     setAllActorInMovie([data.cast])
+                 })
+ 
+        } catch (error) {
+             console.log(error)
+        }
+    }, [currentQuestion, props.movies])
+    useEffect(() => {
+        fetchData()
+    }, [fetchData])
     //This function compares the randomly selected actor with the actors in the movie and checks if the user's answer is correct
 
     const handleAnswerButtonClick = async (isCorrect) => {
+        setCorrectResult(true)
         goToNextQuestion()
-        try {
-           await fetch(`https://api.themoviedb.org/3/movie/${props.allMovies[currentQuestion].id}/credits?api_key=932abb19676c822ea035ea1f7b3c7d6b`)
-                .then(data => data.json())
-                .then(data => {
-                    setAllActorInMovie([data.cast])
-                })
-
-        } catch (error) {
-            console.log(error.message)
-        }
+        
 
         allActorInMovie && allActorInMovie.map((actor) =>
-            actor.map((actorItem) => {
-                if (actorItem.name === randomActorData.toString()) {
-                   return setCorrectResult(true)
+            actor.map((actorItem) => {              
+                if (actorItem.name === randomActorData.map(name => name.nameActor).toString()) {
+                    setCorrectResult(true)
+                    console.log("actor: ", actorItem.name, "random: ",randomActorData.map(name=>name.nameActor))
                 } else {
-                   return setCorrectResult(false)
-                }
-                
+                    //console.log("actor: ", actorItem.name, "random: ",randomActorData.map(name=>name.nameActor) )
+                   setCorrectResult(false)
+                } 
             })
         )
+        console.log(isCorrect, correctResult)
 
         if (isCorrect === true && correctResult === true) {
             props.setScore(props.score + 1)
@@ -69,7 +78,7 @@ function MainContenuOfQuiz(props) {
                 progress: undefined,
                 transition: Zoom,
             });
-            setCorrectResult(false)
+            //setCorrectResult(false)
         } else if (isCorrect === false && correctResult === false) {
             props.setScore(props.score + 1)
             toast.success('Bonne réponse', {
@@ -97,11 +106,9 @@ function MainContenuOfQuiz(props) {
     };
     
 
-    if (props.movies.length === 0 || actor.length === 0) {
+    if (props.movies.length === 0 || actor.length === 0 || loading) {
         return <Loading />
     }
-
-    console.log(props.movies)
 
     return (
         <>
