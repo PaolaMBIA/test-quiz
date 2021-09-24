@@ -3,6 +3,7 @@ import { useActorsFetch } from '../hooks/useActorsFetch'
 import { toast, ToastContainer, Zoom } from "react-toastify"
 import defaultImage from "../assets/defaultImage.png"
 import defaultPost from "../assets/defaultPoster.jpg"
+import Loading from './Loading'
 
 function MainContenuOfQuiz(props) {
 
@@ -97,7 +98,7 @@ function MainContenuOfQuiz(props) {
     
 
     if (props.movies.length === 0 || actor.length === 0) {
-        return <div>load</div>
+        return <Loading />
     }
 
     console.log(props.movies)

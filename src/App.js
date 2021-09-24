@@ -5,6 +5,7 @@ import {useState} from "react"
 import { useMoviesFetch } from './hooks/useMoviesFetch';
 import HomePage from "./pages/HomePage"
 import QuizPage from "./pages/QuizPage"
+import Loading from './components/Loading';
 
 function App() {
 
@@ -15,7 +16,7 @@ function App() {
   
 
   if (state.movies.length === 0) {
-   return <div>load</div>
+   return <Loading />
   }
   
   return (

@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import GameOverPage from "./GameOverPage"
 import MainContainerOfQuiz from "../components/MainContainerOfQuiz"
+import Loading from "../components/Loading"
 
 function QuizPage(props) {
 
@@ -8,7 +9,7 @@ function QuizPage(props) {
     const [showScore, setShowScore] = useState(false)
 
     if (props.allMovies.length === 0) {
-        return <div>load</div>
+        return <Loading />
     }
 
     return (

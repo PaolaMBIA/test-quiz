@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { toast, ToastContainer, Zoom } from "react-toastify"
 
-import {EmailIcon, EmailShareButton} from "react-share"
+import {EmailShareButton} from "react-share"
 
 function GameOverPage(props) {
     const [allScore, setAllScore] = useState(false)
