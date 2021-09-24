@@ -1,0 +1,68 @@
+.mainContainerBlock{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    h1{
+        font-size: $size-1;
+    }
+
+    .imageBlock{
+        position: relative;
+
+        .posterMovie{
+            border-radius: 50px;
+            box-shadow:  10px 10px 10px #d9d9d9,
+             -20px -20px 60px #ffffff;
+        }
+
+        .profilActor{
+            border-radius: 20px;
+            position: absolute;
+            left: 5%;
+            bottom: -4%;
+        }
+    }
+
+    span{
+        margin-top: 3%;
+        font-size: $size-3;
+        width: 50%;
+        text-align: center;
+    }
+
+    .buttonBlock{
+        margin-top: 1%;
+        display: flex;
+        width: 15%;
+        justify-content: space-evenly;
+
+        .yesButton, .noButton{
+            margin: 5%;
+            padding: 6% 18% 6% 18%;
+        }
+
+        .noButton{
+            background-color: $color-1;
+            border: none;
+            border-radius: 5px;
+
+            &:hover{
+                opacity: 0.6;
+                cursor: pointer;
+            }
+        }
+
+        .yesButton{
+            background-color: $color-6;
+            border: none;
+            border-radius: 5px;
+
+            &:hover{
+                opacity: 0.6;
+                cursor: pointer;
+            }
+        }
+    }
+}

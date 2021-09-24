@@ -59,8 +59,8 @@ function MainContenuOfQuiz(props) {
         if (isCorrect === true && correctResult === true) {
             props.setScore(props.score + 1)
             toast.success('Bonne réponse', {
-                position: "bottom-center",
-                autoClose: 900,
+                position: "top-right",
+                autoClose: 1100,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -72,8 +72,8 @@ function MainContenuOfQuiz(props) {
         } else if (isCorrect === false && correctResult === false) {
             props.setScore(props.score + 1)
             toast.success('Bonne réponse', {
-                position: "bottom-center",
-                autoClose: 900,
+                position: "top-right",
+                autoClose: 1100,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -83,8 +83,8 @@ function MainContenuOfQuiz(props) {
             });
         } else {
             toast.error('Mauvaise réponse', {
-                position: "bottom-center",
-                autoClose: 900,
+                position: "top-right",
+                autoClose: 1100,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -100,23 +100,28 @@ function MainContenuOfQuiz(props) {
         return <div>load</div>
     }
 
+    console.log(props.movies)
+
     return (
         <>
             <ToastContainer />
-            <div className="imageBlock">
-                <h1>Question { currentQuestion + 1}</h1>
+            <div className="mainContainerBlock">
+                <h1>Question {currentQuestion + 1}/{props.movies.length }</h1>
                 <div className="imageBlock" >
                     <img
-                        src={props.movies[currentQuestion].poster_path ?
-                            `http://image.tmdb.org/t/p/w500${props.movies[currentQuestion].poster_path}`
+                        src={props.movies[currentQuestion].backdrop_path ?
+                            `http://image.tmdb.org/t/p/w780${props.movies[currentQuestion].backdrop_path}`
                             : defaultPost}
-                        alt="poster film"
+                        alt="poster movie"
+                        className="posterMovie"
                     />
                     <img
                         src={randomActorData.map(profilPath => (
                             profilPath.profilActor ? `http://image.tmdb.org/t/p/w185${profilPath.profilActor}`
                                 : defaultImage))}
                         alt="profil actor"
+                        className="profilActor"
+                        width="140px"
                     />
                 </div>
                 <span>Est-ce que <strong>{randomActorData.map(name=>name.nameActor)}</strong>  a joué dans <strong>{props.movies[currentQuestion].title }</strong> ?</span>
