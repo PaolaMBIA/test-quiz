@@ -10,14 +10,14 @@ function MainContenuOfQuiz(props) {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [actor, setActor] = useState([]);
     const [allActorInMovie, setAllActorInMovie] = useState([]);
-    const [correctResult, setCorrectResult] = useState(false)
     const [loading] = useActorsFetch(props.movies, setActor);
+    let correctResult = false
 
     const actorData = actor && [actor.map(actor => {
         return {nameActor : actor.name, profilActor: actor.profile_path }
     })]
 
-    const randomActorData = actorData && actorData.map(item => item[Math.floor(Math.random() * item.length)])
+    const randomActorData = actorData !== undefined && actorData.map(item => item[Math.floor(Math.random() * item.length)])
 
     const goToNextQuestion = () => {
         const nextQuestion = currentQuestion + 1;
@@ -33,7 +33,7 @@ function MainContenuOfQuiz(props) {
 
     const fetchData = useCallback( async () => {
         try {
-            await fetch(`https://api.themoviedb.org/3/movie/${props.movies[currentQuestion].id}/credits?api_key=932abb19676c822ea035ea1f7b3c7d6b`)
+            await fetch(`${process.env.REACT_APP_API_URL}movie/${props.movies[currentQuestion].id}/credits?api_key=${process.env.REACT_APP_API_KEY}`)
                  .then(data => data.json())
                  .then(data => {
                      setAllActorInMovie([data.cast])
@@ -46,25 +46,19 @@ function MainContenuOfQuiz(props) {
     useEffect(() => {
         fetchData()
     }, [fetchData])
+
+
+
     //This function compares the randomly selected actor with the actors in the movie and checks if the user's answer is correct
-
-    const handleAnswerButtonClick = async (isCorrect) => {
-        setCorrectResult(true)
-        goToNextQuestion()
-        
-
+    const handleAnswerButtonClick = (isCorrect) => {
+     
         allActorInMovie && allActorInMovie.map((actor) =>
             actor.map((actorItem) => {              
-                if (actorItem.name === randomActorData.map(name => name.nameActor).toString()) {
-                    setCorrectResult(true)
-                    console.log("actor: ", actorItem.name, "random: ",randomActorData.map(name=>name.nameActor))
-                } else {
-                    //console.log("actor: ", actorItem.name, "random: ",randomActorData.map(name=>name.nameActor) )
-                   setCorrectResult(false)
-                } 
+                if (actorItem.name === randomActorData.map(name => name.nameActor).toString()) { 
+                    correctResult = true          
+                }
             })
         )
-        console.log(isCorrect, correctResult)
 
         if (isCorrect === true && correctResult === true) {
             props.setScore(props.score + 1)
@@ -78,7 +72,7 @@ function MainContenuOfQuiz(props) {
                 progress: undefined,
                 transition: Zoom,
             });
-            //setCorrectResult(false)
+            correctResult = false
         } else if (isCorrect === false && correctResult === false) {
             props.setScore(props.score + 1)
             toast.success('Bonne réponse', {
@@ -103,6 +97,8 @@ function MainContenuOfQuiz(props) {
                 transition: Zoom,
             });
         }
+
+        goToNextQuestion()
     };
     
 
@@ -118,14 +114,14 @@ function MainContenuOfQuiz(props) {
                 <div className="imageBlock" >
                     <img
                         src={props.movies[currentQuestion].backdrop_path ?
-                            `http://image.tmdb.org/t/p/w780${props.movies[currentQuestion].backdrop_path}`
+                            `${process.env.REACT_APP_IMAGE_BASE_URL}${process.env.REACT_APP_POSTER_SIZE}${props.movies[currentQuestion].backdrop_path}`
                             : defaultPost}
                         alt="poster movie"
                         className="posterMovie"
                     />
                     <img
                         src={randomActorData.map(profilPath => (
-                            profilPath.profilActor ? `http://image.tmdb.org/t/p/w185${profilPath.profilActor}`
+                            profilPath.profilActor ? `${process.env.REACT_APP_IMAGE_BASE_URL}${process.env.REACT_APP_PROFIL_SIZE}${profilPath.profilActor}`
                                 : defaultImage))}
                         alt="profil actor"
                         className="profilActor"

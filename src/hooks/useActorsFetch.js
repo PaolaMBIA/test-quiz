@@ -10,7 +10,7 @@ export const useActorsFetch = (allMovies, setActor) => {
         setLoading(true)
         try {
             await allMovies.map(await ((movie)  => (
-                fetch(`https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=932abb19676c822ea035ea1f7b3c7d6b`)
+                fetch(`${process.env.REACT_APP_API_URL}movie/${movie.id}/credits?api_key=${process.env.REACT_APP_API_KEY}`)
                 .then(data => data.json())
                 .then(data => {
                     setActor(actor=>[ ...actor, ...data.cast])      
