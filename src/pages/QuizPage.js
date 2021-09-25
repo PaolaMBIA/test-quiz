@@ -21,6 +21,7 @@ function QuizPage(props) {
                         restart={props.setStart}
                         movieLength={props.allMovies.length}
                         score={score}
+                        setScore={setScore}
                         username={props.username}
                     />   
                     :

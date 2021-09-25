@@ -19,7 +19,7 @@ function GameOverPage(props) {
 
         localStorage.setItem('sortAllScore', JSON.stringify(sortAllScore))
 
-        toast.info(`Score Sauvegardé!! `, {
+        toast.success(`Score Sauvegardé!! `, {
             position: "top-right",
             autoClose: false,
             hideProgressBar: false,
@@ -31,7 +31,10 @@ function GameOverPage(props) {
         });
     }
 
-    const handleRestartGame = () => props.restart(false)
+    const handleRestartGame = () => {
+        props.setScore(0)
+        props.restart(false)
+    }
     const handleShowAllScore = () => setAllScore(true)
     const handleHideAllScore = () => setAllScore(false)
 
@@ -80,12 +83,12 @@ function GameOverPage(props) {
                                 url=""
                                 subject="Résultat quiz"
                                 body= {`ton score est de ${props.score}/${props.movieLength}`}
+                                className="react-share__ShareButton"
+                                    
                             >
-
-                                <button className="myShareButton">
-                                    Partager
+                                <div className="myShareIcon" >
                                     <img src="https://img.icons8.com/metro/26/000000/share.png" alt="share button" />
-                                </button>
+                                </div>
                             </EmailShareButton>                               
                         </div>
                     </div>

@@ -10,6 +10,7 @@ function MainContenuOfQuiz(props) {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [actor, setActor] = useState([]);
     const [allActorInMovie, setAllActorInMovie] = useState([]);
+    const [loadingRandom, setLoadingRandom] = useState(false);
     const [loading] = useActorsFetch(props.movies, setActor);
     let correctResult = false
 
@@ -17,7 +18,9 @@ function MainContenuOfQuiz(props) {
         return {nameActor : actor.name, profilActor: actor.profile_path }
     })]
 
+    
     const randomActorData = actorData !== undefined && actorData.map(item => item[Math.floor(Math.random() * item.length)])
+
 
     const goToNextQuestion = () => {
         const nextQuestion = currentQuestion + 1;
@@ -31,7 +34,8 @@ function MainContenuOfQuiz(props) {
         }
     }
 
-    const fetchData = useCallback( async () => {
+    //this function fetch all the actors we have in the current movie 
+    const fetchData = useCallback(async () => {
         try {
             await fetch(`${process.env.REACT_APP_API_URL}movie/${props.movies[currentQuestion].id}/credits?api_key=${process.env.REACT_APP_API_KEY}`)
                  .then(data => data.json())
@@ -55,7 +59,7 @@ function MainContenuOfQuiz(props) {
         allActorInMovie && allActorInMovie.map((actor) =>
             actor.map((actorItem) => {              
                 if (actorItem.name === randomActorData.map(name => name.nameActor).toString()) { 
-                    correctResult = true          
+                    correctResult = true
                 }
             })
         )
@@ -102,7 +106,7 @@ function MainContenuOfQuiz(props) {
     };
     
 
-    if (props.movies.length === 0 || actor.length === 0 || loading) {
+    if (props.movies.length === 0 || actor.length === 0 || loading ) {
         return <Loading />
     }
 
@@ -125,7 +129,6 @@ function MainContenuOfQuiz(props) {
                                 : defaultImage))}
                         alt="profil actor"
                         className="profilActor"
-                        width="140px"
                     />
                 </div>
                 <span>Est-ce que <strong>{randomActorData.map(name=>name.nameActor)}</strong>  a joué dans <strong>{props.movies[currentQuestion].title }</strong> ?</span>

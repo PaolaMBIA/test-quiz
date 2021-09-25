@@ -62,7 +62,20 @@
                 justify-content: space-evenly;
             } 
 
-            .myButton, .myShareButton{
+            .myShareIcon{
+                width: max-content;
+                padding: 5%;
+                border-radius: 100%;
+                display: flex;
+                background-color: $color-8;
+
+                &:hover{
+                    cursor: pointer;
+                    background: $color-1;
+                }
+            }
+
+            .myButton{
                 width: 100%;
                 padding: 10%;
                 font-size: $size-5;
@@ -92,9 +105,9 @@
                 }
             }
 
-            .myShareButton{
+            button.react-share__ShareButton{
                 display: flex;
-                justify-content: space-evenly;
+                justify-content: center;
 
                 img{
                     @media screen and (max-width: 500px) {
