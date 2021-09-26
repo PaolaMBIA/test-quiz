@@ -13,7 +13,7 @@ export const useMoviesFetch = () => {
             const resultUrl = `${process.env.REACT_APP_API_URL}discover/movie?api_key=${process.env.REACT_APP_API_KEY}`
 
             const resultData = await (await fetch(resultUrl)).json()
-            setState({movies: [...resultData.results]})
+            setState({ movies: [...resultData.results] })
         
           } catch (err) {
             console.log(err.message)

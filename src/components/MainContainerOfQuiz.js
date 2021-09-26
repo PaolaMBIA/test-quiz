@@ -1,26 +1,23 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { useActorsFetch } from '../hooks/useActorsFetch'
+import React, { useState } from 'react'
 import { toast, ToastContainer, Zoom } from "react-toastify"
 import defaultImage from "../assets/defaultImage.png"
 import defaultPost from "../assets/defaultPoster.jpg"
 import Loading from './Loading'
 
+const TIMER_AUTO_CLOSE_TOAST = 1100
+
 function MainContenuOfQuiz(props) {
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [actor, setActor] = useState([]);
-    const [allActorInMovie, setAllActorInMovie] = useState([]);
-    const [loadingRandom, setLoadingRandom] = useState(false);
-    const [loading] = useActorsFetch(props.movies, setActor);
+
     let correctResult = false
 
-    const actorData = actor && [actor.map(actor => {
+    //stock all actor's name and profil in a json table 
+    const actorData = [props.actors.map(actor => {
         return {nameActor : actor.name, profilActor: actor.profile_path }
     })]
 
-    
-    const randomActorData = actorData !== undefined && actorData.map(item => item[Math.floor(Math.random() * item.length)])
-
+    const randomActorData = actorData.map(item => item[Math.floor(Math.random() * item.length)])
 
     const goToNextQuestion = () => {
         const nextQuestion = currentQuestion + 1;
@@ -34,41 +31,21 @@ function MainContenuOfQuiz(props) {
         }
     }
 
-    //this function fetch all the actors we have in the current movie 
-    const fetchData = useCallback(async () => {
-        try {
-            await fetch(`${process.env.REACT_APP_API_URL}movie/${props.movies[currentQuestion].id}/credits?api_key=${process.env.REACT_APP_API_KEY}`)
-                 .then(data => data.json())
-                 .then(data => {
-                     setAllActorInMovie([data.cast])
-                 })
- 
-        } catch (error) {
-             console.log(error)
-        }
-    }, [currentQuestion, props.movies])
-    useEffect(() => {
-        fetchData()
-    }, [fetchData])
-
-
-
     //This function compares the randomly selected actor with the actors in the movie and checks if the user's answer is correct
     const handleAnswerButtonClick = (isCorrect) => {
      
-        allActorInMovie && allActorInMovie.map((actor) =>
-            actor.map((actorItem) => {              
-                if (actorItem.name === randomActorData.map(name => name.nameActor).toString()) { 
-                    correctResult = true
-                }
-            })
-        )
+        props.allActorsInMovie[currentQuestion].map((actorItem) => {
+            if (actorItem.name === randomActorData.map(name => name.nameActor).toString()) { 
+                correctResult = true
+            }
+            return correctResult;
+        })
 
         if (isCorrect === true && correctResult === true) {
             props.setScore(props.score + 1)
             toast.success('Bonne réponse', {
                 position: "top-right",
-                autoClose: 1100,
+                autoClose: TIMER_AUTO_CLOSE_TOAST,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -81,7 +58,7 @@ function MainContenuOfQuiz(props) {
             props.setScore(props.score + 1)
             toast.success('Bonne réponse', {
                 position: "top-right",
-                autoClose: 1100,
+                autoClose: TIMER_AUTO_CLOSE_TOAST,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -92,7 +69,7 @@ function MainContenuOfQuiz(props) {
         } else {
             toast.error('Mauvaise réponse', {
                 position: "top-right",
-                autoClose: 1100,
+                autoClose: TIMER_AUTO_CLOSE_TOAST,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -105,8 +82,7 @@ function MainContenuOfQuiz(props) {
         goToNextQuestion()
     };
     
-
-    if (props.movies.length === 0 || actor.length === 0 || loading ) {
+    if (props.movies.length === 0 || props.actors.length === 0 ) {
         return <Loading />
     }
 

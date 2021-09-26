@@ -1,0 +1,13 @@
+.errorPage{
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: $color-11;
+    align-items: center;
+    justify-content: center;
+
+    span{
+        color: $color-5;
+    }
+}

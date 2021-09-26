@@ -47,7 +47,7 @@ function HomePage(props) {
                             value={props.username}
                             onChange={(e)=>handleInputChange(e)}
                         />
-                        <button onClick={()=>handleStartQuiz()}>Commencer le quiz</button>
+                        <button onClick={()=>handleStartQuiz()}>Commencez le quiz</button>
                     </div> 
                 </div>
             </div>
