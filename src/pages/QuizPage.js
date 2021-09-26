@@ -8,12 +8,13 @@ function QuizPage(props) {
     const [score, setScore] = useState(0)
     const [showScore, setShowScore] = useState(false)
 
-    if (props.allMovies.length === 0) {
+    //console.log(props.allActorsInMovie)
+
+    if (props.actors.length === 0 || props.allActorsInMovie.length===0) {
         return <Loading />
     }
 
     return (
-  
         <>
             {
                 showScore ?
@@ -31,11 +32,11 @@ function QuizPage(props) {
                             setShowScore={setShowScore}
                             setScore={setScore}
                             score={score}
+                            actors={props.actors}
+                            allActorsInMovie={props.allActorsInMovie}
                         />
                     </>
             }
-
-
         </>
     )
 }

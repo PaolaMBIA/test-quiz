@@ -38,7 +38,6 @@ function GameOverPage(props) {
     const handleShowAllScore = () => setAllScore(true)
     const handleHideAllScore = () => setAllScore(false)
 
-    
     return (
         <>
             <ToastContainer />
@@ -55,7 +54,7 @@ function GameOverPage(props) {
                                 <thead>
                                     <tr>
                                         <th>Scores</th>
-                                        <th>Nom</th>
+                                        <th>Noms</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -83,8 +82,7 @@ function GameOverPage(props) {
                                 url=""
                                 subject="Résultat quiz"
                                 body= {`ton score est de ${props.score}/${props.movieLength}`}
-                                className="react-share__ShareButton"
-                                    
+                                className="react-share__ShareButton"          
                             >
                                 <div className="myShareIcon" >
                                     <img src="https://img.icons8.com/metro/26/000000/share.png" alt="share button" />
